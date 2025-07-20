@@ -1,0 +1,43 @@
+# VLAN Configuration Guide - Cisco IOS
+
+This guide explains how to create and assign VLANs on Cisco IOS switches.
+
+## 1. Create a VLAN
+To create VLANs, enter global configuration mode and use:
+
+vlan 10
+ name Sales
+
+vlan 20
+ name Engineering
+
+## 2. Assign VLANs to Interfaces
+Assign access ports to VLANs:
+
+interface FastEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+
+interface FastEthernet0/2
+ switchport mode access
+ switchport access vlan 20
+
+## 3. Configure a Trunk Port
+To allow multiple VLANs on a single link (e.g., uplinks):
+
+interface GigabitEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20
+
+## 4. VLAN Verification Commands
+
+show vlan brief  
+show interfaces trunk  
+show running-config interface FastEthernet0/1  
+
+## Notes:
+- VLAN IDs range from 1 to 4094.
+- VLAN 1 is the default VLAN for all switch ports.
+- Trunk ports are used between switches or to routers/servers using multiple VLANs.
+

@@ -1,0 +1,36 @@
+# OSPF Configuration Guide - Cisco IOS
+
+This guide outlines the steps to configure OSPF (Open Shortest Path First) on Cisco IOS routers.
+
+## 1. Enable OSPF and assign a process ID
+Use the `router ospf` command followed by a locally significant process ID:
+
+router ospf 1
+
+## 2. Define OSPF Networks
+Specify which interfaces participate in OSPF:
+
+network 192.168.1.0 0.0.0.255 area 0
+network 10.0.0.0 0.255.255.255 area 1
+
+## 3. Set Router ID (Optional but recommended)
+router-id 1.1.1.1
+
+## 4. Passive Interfaces (Optional)
+To prevent sending OSPF Hello packets on unused interfaces:
+
+passive-interface default
+no passive-interface GigabitEthernet0/1
+
+## 5. Verification Commands
+Use the following commands to verify OSPF:
+
+show ip ospf neighbor
+show ip ospf interface
+show ip protocols
+show ip route ospf
+
+## Notes:
+- OSPF uses cost as its metric (based on interface bandwidth).
+- Area 0 is the backbone area and must exist in any OSPF domain.
+- OSPF Hello interval = 10s by default on broadcast links.
